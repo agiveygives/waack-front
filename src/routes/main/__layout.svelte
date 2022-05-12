@@ -10,7 +10,7 @@
 <TopAppBar bind:this={topAppBar} variant="standard">
 	<Row>
 		<Section>
-			<a href={'/main/nav'}><img src="bnr_logo.png" alt="BNR logo" class="logo" /></a>
+			<a href={'/main/nav'}><img src="../../images/bnr_logo.png" alt="BNR logo" class="logo" /></a>
 			<Title>Accomplish</Title>
 		</Section>
 		<Section align="end" toolbar>
