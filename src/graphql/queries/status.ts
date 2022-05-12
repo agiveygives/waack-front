@@ -4,14 +4,10 @@ import type QueryResType from './types';
 
 const getStatus = async () => {
   const { status } = await request(
-    'https://rhcuw3hgpc.us-east-1.awsapprunner.com/status',
+    'https://rhcuw3hgpc.us-east-1.awsapprunner.com/graphql',
     gql`
       query {
-        fruits {
-          scientific_name,
-          tree_name,
-          fruit_name
-        }
+        status
       }
     `
   )
