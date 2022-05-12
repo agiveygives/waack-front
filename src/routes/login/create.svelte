@@ -15,7 +15,7 @@
 
 	const handleCreate = (/** @type {Event} */ event) => {
 		console.log('create', event);
-		goto('/main/home');
+		goto('/main/nav');
 	};
 </script>
 
