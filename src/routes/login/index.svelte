@@ -14,10 +14,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>LOG IN</title>
-</svelte:head>
-
 <div class="main">
 	<Paper>
 		<div class="login">

@@ -11,3 +11,5 @@
 		}
 	});
 </script>
+
+<svelte:head><title>WAACK</title></svelte:head>
