@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-
 	import IconButton from '@smui/icon-button';
 </script>
 
