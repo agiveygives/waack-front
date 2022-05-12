@@ -19,10 +19,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>SIGN UP</title>
-</svelte:head>
-
 <div class="main">
 	<Paper>
 		<div class="signup">

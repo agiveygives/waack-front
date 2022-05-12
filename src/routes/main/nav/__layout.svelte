@@ -18,8 +18,10 @@
 			aria-label="trophies"
 			on:click={() => goto('/main/nav/trophies')}>emoji_events</IconButton
 		>
-		<IconButton class="material-icons" aria-label="career" on:click={() => goto('/main/nav/career')}
-			>arrow_circle_up</IconButton
+		<IconButton
+			class="material-icons arrow"
+			aria-label="career"
+			on:click={() => goto('/main/nav/career')}>arrow_circle_up</IconButton
 		>
 	</div>
 	<slot />
@@ -37,5 +39,8 @@
 		flex-direction: column;
 		height: 100%;
 		background-color: #676778;
+	}
+	:global(.arrow) {
+		transform: rotate(45deg);
 	}
 </style>

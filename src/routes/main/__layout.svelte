@@ -30,19 +30,13 @@
 <slot />
 
 <style>
-	/* Hide everything above this component. */
-	:global(app),
-	:global(body),
-	:global(html) {
-		display: block !important;
-		height: auto !important;
-		width: auto !important;
-		position: static !important;
-	}
 	a {
-		height: 90%;
+		height: 100%;
 	}
 	.logo {
 		height: 100%;
+	}
+	:global(.mdc-icon-button--display-flex) {
+		display: inline-block;
 	}
 </style>
