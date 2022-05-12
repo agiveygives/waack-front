@@ -5,7 +5,7 @@
 	let userLoggedIn = false;
 	onMount(() => {
 		if (userLoggedIn) {
-			goto('/home');
+			goto('/main/nav');
 		} else {
 			goto('/login');
 		}

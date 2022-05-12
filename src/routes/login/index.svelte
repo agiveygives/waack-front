@@ -10,7 +10,7 @@
 
 	const handleLogin = (/** @type {Event} */ event) => {
 		console.log('login', event);
-		goto('/main');
+		goto('/main/nav');
 	};
 </script>
 
@@ -30,7 +30,7 @@
 			<Button on:click={handleLogin} variant="raised">
 				<Label>Log In</Label>
 			</Button>
-			<Button on:click={() => goto('/create')}>
+			<Button on:click={() => goto('/login/create')}>
 				<Label>Sign up</Label>
 			</Button>
 		</div>
