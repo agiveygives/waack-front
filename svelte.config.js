@@ -14,7 +14,11 @@ const config = {
 		methodOverride: {
 			allowed: ['PATCH', 'DELETE']
 		}
+	},
+	vite: {
+		optimizeDeps: {
+		  include: ['just-throttle', 'dayjs']
+		}
 	}
 };
-
 export default config;

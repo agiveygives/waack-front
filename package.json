@@ -50,6 +50,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
+    "@smui/dialog": "^6.0.0-beta.16",
     "cookie": "^0.4.1",
     "graphql": "^16.5.0",
     "graphql-request": "^3.3.0"

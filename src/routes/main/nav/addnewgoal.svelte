@@ -20,10 +20,10 @@
         response = 'Closed without response.';
         break;
       case 'reject':
-        response = 'Rejected.';
+        response = 'Rejected';
         break;
       case 'accept':
-        response = 'Accepted.';
+        response = 'Goal Added';
         break;
     }
   }
@@ -35,7 +35,6 @@
   }
 </script>
 
-
 <Dialog
   bind:open
   fullscreen
@@ -45,12 +44,12 @@
 >
   <Header>
     <Title id="fullscreen-title">Add a New Goal</Title>
-    <IconButton action="close" class="material-icons">close</IconButton>
+    <IconButton action="close" class="material-icons">X</IconButton>
   </Header>
   <Content id="fullscreen-content">
     <div class="margins">
       <Textfield textarea bind:value label="Add a new goal bruh!">
-          <HelperText slot="helper">Dan won't give you a promotion without a goal</HelperText>
+          <HelperText slot="helper"></HelperText>
         </Textfield>
      </div> 
      <Datepicker />
@@ -66,8 +65,6 @@
 
 </Dialog>
 
-<Button on:click={() => (open = true)}>
-  <Label>Open Dialog</Label>
-</Button>
+
 
 <pre class="status">Response: {response}</pre>
