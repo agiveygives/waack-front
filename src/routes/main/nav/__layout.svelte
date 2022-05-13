@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+
 	import IconButton from '@smui/icon-button';
 </script>
 
@@ -24,21 +25,28 @@
 			on:click={() => goto('/main/nav/career')}>arrow_circle_up</IconButton
 		>
 	</div>
-	<slot />
+
+	<div class='content'>
+		<slot />
+	</div>
 </div>
 
 <style>
 	.nav {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    height: 100%;
 	}
 	.sidebar {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		background-color: #676778;
+	}
+	.content {
+    padding: 50px 75px;
+    width: 100%;
 	}
 	:global(.arrow) {
 		transform: rotate(45deg);
