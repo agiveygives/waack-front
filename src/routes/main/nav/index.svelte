@@ -1,12 +1,7 @@
 <script>
-	import { userInfo } from '../../../store/login';
+	import { initialUserInfo, userInfo } from '../../../store/login';
 
-	let /** @type {import('../../../types/user').User} */ userValue = {
-			name: '',
-			email: '',
-			title: '',
-			manager: ''
-		};
+	let /** @type {import('../../../types/user').User} */ userValue = initialUserInfo;
 	userInfo.subscribe((value) => (userValue = value));
 </script>
 
