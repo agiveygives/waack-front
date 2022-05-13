@@ -23,8 +23,10 @@
     "@playwright/test": "^1.21.0",
     "@smui/button": "^6.0.0-beta.16",
     "@smui/card": "^6.0.0-beta.16",
+    "@smui/chips": "^6.0.0-beta.16",
     "@smui/common": "^6.0.0-beta.16",
     "@smui/data-table": "^6.0.0-beta.16",
+    "@smui/dialog": "^6.0.0-beta.16",
     "@smui/drawer": "^6.0.0-beta.16",
     "@smui/icon-button": "^6.0.0-beta.16",
     "@smui/layout-grid": "^6.0.0-beta.16",
@@ -54,9 +56,10 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
-    "@smui/dialog": "^6.0.0-beta.16",
+    "@smui-extra/accordion": "^6.0.0-beta.16",
     "cookie": "^0.4.1",
     "graphql": "^16.5.0",
-    "graphql-request": "^3.3.0"
+    "graphql-request": "^3.3.0",
+    "jspdf": "^2.5.1"
   }
 }

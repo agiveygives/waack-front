@@ -1,9 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import cookies from '../helpers/cookies';
 
-	let userLoggedIn = false;
 	onMount(() => {
+		const userLoggedIn = cookies.get('username');
 		if (userLoggedIn) {
 			goto('/main/nav');
 		} else {
