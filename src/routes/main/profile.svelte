@@ -14,7 +14,7 @@
 </script>
 
 <div class="flexbox-container">
-	<DataTable table$aria-label="People list" style="max-width: 100%;">
+	<DataTable table$aria-label="People list">
 		<Body>
 			<Row>
 				<Cell>Username</Cell>
@@ -43,6 +43,9 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		padding: 150px;
+		padding: 10%;
+	}
+	:global(.mdc-data-table) {
+		width: 100%;
 	}
 </style>
