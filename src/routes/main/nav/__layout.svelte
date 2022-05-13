@@ -14,19 +14,21 @@
 	<div class={open ? 'sidebar-open' : 'sidebar'}>
 		<div class="sidebar-nav">
 			<Button on:click={() => goto('/main/nav/goals')} style="padding-left: 0">
-				<Icon class="material-icons">pie_chart_outlined</Icon>
+				<Icon class="material-icons sidebar_icon">pie_chart_outlined</Icon>
 				<Label class="label">Goals</Label>
 			</Button>
 			<Button on:click={() => goto('/main/nav/accomplishments')} style="padding-left: 0">
-				<Icon class="material-icons">list_alt</Icon>
+				<Icon class="material-icons sidebar_icon">list_alt</Icon>
 				<Label>Accomplishments</Label>
 			</Button>
 			<Button on:click={() => goto('/main/nav/trophies')}>
-				<Icon class="material-icons" style="margin-right: 0">emoji_events_outlined</Icon>
+				<Icon class="material-icons sidebar_icon" style="margin-right: 0"
+					>emoji_events_outlined</Icon
+				>
 				<Label>Trophy Case</Label>
 			</Button>
 			<Button on:click={() => goto('/main/nav/career')} style="padding-left: 0">
-				<Icon class="material-icons arrow">arrow_circle_up</Icon>
+				<Icon class="material-icons arrow sidebar_icon">arrow_circle_up</Icon>
 				<Label>Tech Career Progression</Label>
 			</Button>
 		</div>
@@ -87,9 +89,9 @@
 		margin-bottom: 56px;
 		transition: all 300ms;
 	}
-	:global(.mdc-button .mdc-button__icon) {
-		width: 45px;
-		font-size: 24px;
+	:global(.sidebar_icon) {
+		width: 45px !important;
+		font-size: 24px !important;
 	}
 	:global(.mdc-button__label) {
 		white-space: nowrap;
