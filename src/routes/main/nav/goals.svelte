@@ -1,7 +1,7 @@
 <script lang="ts">
   import Select, { Option } from '@smui/select';
   import Button, { Icon, Label } from '@smui/button';
-  import { Daily } from '@components/GoalsCalendar';
+  import { Daily } from '../../../components/GoalsCalendar';
 
   let calendarOptions = [
     'Daily',
