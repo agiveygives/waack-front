@@ -1,7 +1,7 @@
 <script lang="ts">
   import Select, { Option } from '@smui/select';
   import Button, { Icon, Label } from '@smui/button';
-  import { Daily } from '@components/GoalsCalendar';
+  import { Daily, Weekly } from '@components/GoalsCalendar';
 
   let calendarOptions = [
     'Daily',
@@ -9,7 +9,7 @@
     'Monthly'
   ];
 
-  let value = calendarOptions[0];
+  let value = calendarOptions[1];
 </script>
 
 <div class='header'>Goals</div>
@@ -31,7 +31,7 @@
 {#if value === 'Daily'}
   <Daily />
 {:else if value === 'Weekly'}
-  <p>Weekly</p>
+  <Weekly />
 {:else}
   <p>Monthly</p>
 {/if}

@@ -8,9 +8,15 @@
     'finish clash project'
   ]
 
-  let complete = [
-    'fly to Atlanta'
-  ]
+  let complete = {
+    monday: [],
+    tuesday: ['fly to Atlanta'],
+    wednesday: ['Start Clash'],
+    thursday: ['Eat Waffle House'],
+    friday: [],
+    saturday: [],
+    sunday: ['Fly to Kansas City']
+  };
 
   const zones = [
     {
@@ -21,11 +27,38 @@
       name: 'In Progress',
       items: inProgress
     },
-    {
-      name: 'Complete',
-      items: complete
-    }
   ];
+
+  const dailyZones = [
+    {
+      name: 'Monday',
+      items: complete.monday
+    },
+    {
+      name: 'Tuesday',
+      items: complete.tuesday
+    },
+    {
+      name: 'Wednesday',
+      items: complete.wednesday
+    },
+    {
+      name: 'Thursday',
+      items: complete.thursday
+    },
+    {
+      name: 'Friday',
+      items: complete.friday
+    },
+    {
+      name: 'Saturday',
+      items: complete.saturday
+    },
+    {
+      name: 'Sunday',
+      items: complete.sunday
+    },
+  ]
 
   let hoveringOverZone;
 
@@ -33,8 +66,8 @@
     // The data we want to make available when the element is dropped
     // is the index of the item being dragged and
     // the index of the zone from which it is leaving.
-    const data = {zoneIndex, itemIndex};
-      event.dataTransfer.setData('text/plain', JSON.stringify(data));
+    const data = { zoneIndex, itemIndex };
+    event.dataTransfer.setData('text/plain', JSON.stringify(data));
   }
 
   function drop(event, zoneIndex) {
@@ -59,7 +92,6 @@
     <div
       class:todo={zoneIndex === 0}
       class:in-progress={zoneIndex === 1}
-      class:complete={zoneIndex === 2}
     >
       <div class='col-header'>{zone.name}</div>
       <ul
@@ -83,6 +115,29 @@
       </ul>
     </div>
   {/each}
+
+  <div class='week-container'>
+    <div class='col-header'>Completed</div>
+      <div class='days-container'>
+        {#each dailyZones as zone, zoneIndex (zone)}
+          <div class:sunday={zoneIndex === 6}>
+            <div class='col-header'>{zone.name}</div>
+            <ul
+              class='day-container'
+              class:hovering={hoveringOverZone === zone.name}
+            >
+              {#each zone.items as item, itemIndex (`${item}-${itemIndex}`)}
+                <div>
+                  <li>
+                    {item}
+                  </li>
+                </div>
+              {/each}
+            </ul>
+          </div>
+        {/each}
+      </div>
+  </div>
 </div>
 
 <style>
@@ -91,7 +146,8 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-auto-columns: 33%;
+    grid-auto-columns: 50%;
+    grid-auto-rows: 33%;
     grid-gap: 10px;
   }
   .col-header {
@@ -122,21 +178,45 @@
     height: 40px; /* needed when empty */
     padding: 10px;
   }
+
   .goals-container {
     height: 100%;
-    border-radius: 5px;
     border: white solid 1px;
     text-align: center;
+    border-radius: 5px;
   }
   .todo {
     grid-column: 1 / 2;
+    grid-row: 1 / 2;
   }
-
   .in-progress {
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
   }
 
-  .complete {
-    grid-column: 3 / 4;
+  .week-container {
+    margin-top: 100px;
+    height: 100%;
+    text-align: center;
+    grid-row: 2 / 4;
+    grid-column: 1 / 3;
+  }
+  .days-container {
+    height: 100%;
+    text-align: center;
+    display: grid;
+    grid-auto-columns: 13.75%;
+    grid-gap: 10px;
+    padding-top: 20px;
+  }
+  .day-container {
+    height: 100%;
+    border-radius: 5px;
+  }
+  .sunday {
+    grid-column: 7 / 8;
+  }
+  .completed-item {
+    draggable: none;
   }
 </style>
