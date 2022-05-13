@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
 	import Textfield from '@smui/textfield';
 	import { Icon } from '@smui/common';
 	import Paper from '@smui/paper';
 	import Button, { Label } from '@smui/button';
 	import { goto } from '$app/navigation';
+	import { setLoginCookie } from '../../helpers/cookies';
 
 	let email = '';
 	let password = '';
 
-	const handleLogin = (/** @type {Event} */ event) => {
-		console.log('login', event);
+	const handleLogin = (event: Event) => {
+		setLoginCookie(email);
 		goto('/main/nav');
 	};
 </script>
@@ -23,7 +24,7 @@
 			<Textfield class="shaped-filled" variant="filled" bind:value={password} label="password">
 				<Icon class="material-icons" slot="leadingIcon">lock</Icon>
 			</Textfield>
-			<Button on:click={handleLogin} variant="raised">
+			<Button on:click={handleLogin} variant="raised" disabled={!email || !password}>
 				<Label>Log In</Label>
 			</Button>
 			<Button on:click={() => goto('/login/create')}>

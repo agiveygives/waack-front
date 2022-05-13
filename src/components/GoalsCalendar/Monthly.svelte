@@ -1,6 +1,6 @@
 <script lang='ts'>
-  import Calendar from '@components/Calendar';
-  import type { CalendarItemType } from '@components/Calendar/CalendarUtils';
+  import Calendar from '@comp/Calendar';
+  import type { CalendarItemType } from '@comp/Calendar/CalendarUtils';
 
 	let now = new Date();
 	let year = now.getFullYear();		//	this is the month & year displayed
@@ -56,7 +56,7 @@
       },
 		];
 
-  const zones = [
+  let zones = [
     {
       name: 'Todo',
       items: todos

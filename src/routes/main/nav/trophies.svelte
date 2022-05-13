@@ -1,1 +1,5 @@
-<h1>Trophies</h1>
+<script>
+	import { Header } from '@comp/Header/';
+</script>
+
+<Header header="Trophy Case" />

@@ -12,7 +12,7 @@
     'fly to Atlanta'
   ]
 
-  const zones = [
+  let zones = [
     {
       name: 'Todo',
       items: todos

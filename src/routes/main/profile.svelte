@@ -3,18 +3,19 @@
 
 	import Button from '@smui/button';
 	import { Label } from '@smui/common';
-	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
+	import DataTable, { Body, Row, Cell } from '@smui/data-table';
+	import cookies from '../../helpers/cookies';
 
 	let name = '';
 	let username = '';
 	const handleLogout = (/** @type {Event} */ event) => {
-		console.log('logout', event);
+		cookies.set('username', '', -1);
 		goto('/login');
 	};
 </script>
 
 <div class="flexbox-container">
-	<DataTable table$aria-label="People list" style="max-width: 100%;">
+	<DataTable table$aria-label="People list">
 		<Body>
 			<Row>
 				<Cell>Username</Cell>
@@ -43,6 +44,9 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		padding: 150px;
+		padding: 10%;
+	}
+	:global(.mdc-data-table) {
+		width: 100%;
 	}
 </style>

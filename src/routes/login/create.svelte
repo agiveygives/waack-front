@@ -1,20 +1,30 @@
-<script>
+<script lang="ts">
 	import Textfield from '@smui/textfield';
 	import { Icon } from '@smui/common';
 	import Paper from '@smui/paper';
 	import Button, { Label } from '@smui/button';
 	import Select, { Option } from '@smui/select';
 	import { goto } from '$app/navigation';
+	import { userInfo } from '../../store/login';
+	import { setLoginCookie } from '../../helpers/cookies';
 
 	let email = '';
 	let password = '';
-	let shareEmail = '';
+	let name = '';
+	let manager = '';
 
-	const categories = ['developer', 'senior developer', 'solution architect'];
-	let selectedOption = '';
+	const titleCategories = ['developer', 'senior developer', 'solution architect'];
+	let title = '';
 
-	const handleCreate = (/** @type {Event} */ event) => {
-		console.log('create', event);
+	const handleCreate = (event: Event) => {
+		// just a fake way to populate the store for now
+		userInfo.set({
+			name,
+			email,
+			title,
+			manager
+		});
+		setLoginCookie(email);
 		goto('/main/nav');
 	};
 </script>
@@ -28,27 +38,29 @@
 			<Textfield class="shaped-filled" variant="filled" bind:value={password} label="password">
 				<Icon class="material-icons" slot="leadingIcon">lock</Icon>
 			</Textfield>
-			<Select
-				class="shaped-filled"
-				variant="filled"
-				bind:value={selectedOption}
-				label="current title"
-			>
+			<Textfield class="shaped-filled" variant="filled" bind:value={name} label="name">
+				<Icon class="material-icons" slot="leadingIcon">badge</Icon>
+			</Textfield>
+			<Select class="shaped-filled" variant="filled" bind:value={title} label="current title">
 				<Icon class="material-icons" slot="leadingIcon">terminal</Icon>
 				<Option value="" />
-				{#each categories as category}
+				{#each titleCategories as category}
 					<Option value={category}>{category}</Option>
 				{/each}
 			</Select>
 			<Textfield
 				class="shaped-filled"
 				variant="filled"
-				bind:value={shareEmail}
+				bind:value={manager}
 				label="manager's email"
 			>
 				<Icon class="material-icons" slot="leadingIcon">share</Icon>
 			</Textfield>
-			<Button on:click={handleCreate} variant="raised">
+			<Button
+				on:click={handleCreate}
+				variant="raised"
+				disabled={!email || !password || !name || !title}
+			>
 				<Label>Sign Up</Label>
 			</Button>
 			<Button on:click={() => goto('/login')}>

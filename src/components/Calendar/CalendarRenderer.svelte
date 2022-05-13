@@ -18,10 +18,6 @@
 
   var days = [];  //  The days to display in each box
 
-  function randInt(max) {
-    return Math.floor(Math.random()*max)+1;
-  }
-
   $: month,year,initContent();
 
   // choose what date/day gets displayed in each date box.

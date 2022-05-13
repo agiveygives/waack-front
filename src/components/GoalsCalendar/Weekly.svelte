@@ -18,7 +18,7 @@
     sunday: ['Fly to Kansas City']
   };
 
-  const zones = [
+  let zones = [
     {
       name: 'Todo',
       items: todos
