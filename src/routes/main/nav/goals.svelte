@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Select, { Option } from '@smui/select';
 	import Button, { Icon, Label } from '@smui/button';
-	import { Daily } from '@components/GoalsCalendar';
-	import { Header } from '@components/Header';
+	import { Daily } from '@comp/GoalsCalendar';
+	import { Header } from '@comp/Header';
 
 	let calendarOptions = ['Daily', 'Weekly', 'Monthly'];
 

@@ -1,5 +1,5 @@
 <script>
-	import { Header } from '@components/Header/';
+	import { Header } from '@comp/Header/';
 	import Button from '@smui/button';
 	import { Icon, Label } from '@smui/common';
 	import { exportPDF } from '../../../helpers/pdf';

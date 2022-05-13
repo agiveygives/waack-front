@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Header as HeaderComponent } from '@components/Header/';
+	import { Header as HeaderComponent } from '@comp/Header/';
 	import Accordion from '@smui-extra/accordion';
-	import { Accomplishment } from '@components/Accomplishment';
-	import { AddAccomplishment } from '@components/AddAccomplishment';
+	import { Accomplishment } from '@comp/Accomplishment';
+	import { AddAccomplishment } from '@comp/AddAccomplishment';
 	import Button from '@smui/button';
 	import { Icon, Label } from '@smui/common';
 	import { accomplishments } from '../../../store/accomplishments';

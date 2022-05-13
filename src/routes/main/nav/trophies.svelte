@@ -1,5 +1,5 @@
 <script>
-	import { Header } from '@components/Header/';
+	import { Header } from '@comp/Header/';
 </script>
 
 <Header header="Trophy Case" />
