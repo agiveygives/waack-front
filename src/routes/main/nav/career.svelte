@@ -1,1 +1,5 @@
-<h1>Career</h1>
+<script>
+	import { Header } from '@components/Header/';
+</script>
+
+<Header header="Tech Career Progression" />
