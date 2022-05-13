@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Textfield from '@smui/textfield';
 	import { Icon } from '@smui/common';
 	import Paper from '@smui/paper';
@@ -9,7 +9,7 @@
 	let email = '';
 	let password = '';
 
-	const handleLogin = (/** @type {Event} */ event) => {
+	const handleLogin = (event: Event) => {
 		setLoginCookie(email);
 		goto('/main/nav');
 	};

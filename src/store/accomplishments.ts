@@ -5,7 +5,8 @@ export const initialAccomplishmentData: Accomplishment = {
     date: '',
     description: '',
     content: '',
-    url: '',
+    uploadedFiles: null,
+    tags: '',
 }
 
 export const accomplishments = writable([])
