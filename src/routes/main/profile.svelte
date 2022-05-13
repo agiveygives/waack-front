@@ -3,12 +3,13 @@
 
 	import Button from '@smui/button';
 	import { Label } from '@smui/common';
-	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
+	import DataTable, { Body, Row, Cell } from '@smui/data-table';
+	import cookies from '../../helpers/cookies';
 
 	let name = '';
 	let username = '';
 	const handleLogout = (/** @type {Event} */ event) => {
-		console.log('logout', event);
+		cookies.set('username', '', -1);
 		goto('/login');
 	};
 </script>
