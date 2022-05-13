@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Dialog, { Header, Title, Content, Actions } from '@smui/dialog';
 	import Textfield from '@smui/textfield';
 	import IconButton from '@smui/icon-button';
@@ -9,22 +10,30 @@
 	let date: string = '';
 	let description: string = '';
 	let content: string = '';
+	let tags: string = '';
 	let uploadedFiles: FileList | null = null;
 
-	let response = 'Nothing yet.';
+	const dispatch = createEventDispatcher();
+
+	function clearData() {
+		console.log('here');
+		date = '';
+		description = '';
+		content = '';
+		uploadedFiles = null;
+	}
 
 	function closeHandler(e: CustomEvent<{ action: string }>) {
-		switch (e.detail.action) {
-			case 'close':
-				response = 'Closed without response.';
-				break;
-			case 'reject':
-				response = 'Rejected.';
-				break;
-			case 'accept':
-				response = 'Accepted.';
-				break;
+		if (e.detail.action === 'accept') {
+			dispatch('addAccomplishment', {
+				date,
+				description,
+				content,
+				uploadedFiles,
+				tags
+			});
 		}
+		clearData();
 	}
 </script>
 
@@ -48,16 +57,24 @@
 			label="description"
 		/>
 		<Textfield class="shaped-filled" variant="filled" bind:value={content} label="content" />
+		<div class="hide-file-ui">
+			<Textfield
+				class="shaped-filled"
+				variant="filled"
+				type="file"
+				bind:files={uploadedFiles}
+				label="upload a file"
+			/>
+		</div>
 		<Textfield
 			class="shaped-filled"
 			variant="filled"
-			type="file"
-			bind:files={uploadedFiles}
-			label="upload a file"
+			bind:value={tags}
+			label="add tags, separated by a comma"
 		/>
 	</Content>
 	<Actions>
-		<Button action="reject">
+		<Button action="close">
 			<Label>Cancel</Label>
 		</Button>
 		<Button action="accept" defaultAction>
@@ -70,5 +87,18 @@
 	:global(.modal-content) {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.hide-file-ui,
+	.hide-file-ui > :global(label) {
+		width: 100%;
+	}
+
+	.hide-file-ui :global(input[type='file']::file-selector-button) {
+		display: none;
+	}
+
+	.hide-file-ui :global(:not(.mdc-text-field--label-floating) input[type='file']) {
+		color: transparent;
 	}
 </style>

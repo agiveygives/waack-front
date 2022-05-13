@@ -22,6 +22,7 @@
     "@playwright/test": "^1.21.0",
     "@smui/button": "^6.0.0-beta.16",
     "@smui/card": "^6.0.0-beta.16",
+    "@smui/chips": "^6.0.0-beta.16",
     "@smui/common": "^6.0.0-beta.16",
     "@smui/data-table": "^6.0.0-beta.16",
     "@smui/dialog": "^6.0.0-beta.16",

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Textfield from '@smui/textfield';
 	import { Icon } from '@smui/common';
 	import Paper from '@smui/paper';
@@ -16,7 +16,7 @@
 	const titleCategories = ['developer', 'senior developer', 'solution architect'];
 	let title = '';
 
-	const handleCreate = (/** @type {Event} */ event) => {
+	const handleCreate = (event: Event) => {
 		// just a fake way to populate the store for now
 		userInfo.set({
 			name,
