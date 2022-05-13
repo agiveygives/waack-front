@@ -29,7 +29,8 @@
 				date,
 				description,
 				content,
-				uploadedFiles
+				uploadedFiles,
+				tags
 			});
 		}
 		clearData();
