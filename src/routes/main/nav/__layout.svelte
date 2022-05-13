@@ -22,7 +22,7 @@
 				<Label>Accomplishments</Label>
 			</Button>
 			<Button on:click={() => goto('/main/nav/trophies')}>
-				<Icon class="material-icons">emoji_events_outlined</Icon>
+				<Icon class="material-icons" style="margin-right: 0">emoji_events_outlined</Icon>
 				<Label>Trophy Case</Label>
 			</Button>
 			<Button on:click={() => goto('/main/nav/career')} style="padding-left: 0">
@@ -38,17 +38,17 @@
 		>
 	</div>
 
-	<div class='content'>
+	<div class="content">
 		<slot />
 	</div>
 </div>
 
 <style>
 	.nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    height: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: left;
+		height: 100%;
 	}
 	.sidebar,
 	.sidebar-open,
@@ -74,8 +74,11 @@
 		overflow: visible;
 	}
 	.content {
-    padding: 50px 75px;
-    width: 100%;
+		padding: 50px 20px;
+		width: 100%;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 	:global(.arrow) {
 		transform: rotate(45deg);
@@ -88,7 +91,7 @@
 		width: 45px;
 		font-size: 24px;
 	}
-	:global(.label) {
+	:global(.mdc-button__label) {
 		white-space: nowrap;
 	}
 </style>
