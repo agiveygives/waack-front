@@ -57,6 +57,7 @@
     "@smui-extra/accordion": "^6.0.0-beta.16",
     "cookie": "^0.4.1",
     "graphql": "^16.5.0",
-    "graphql-request": "^3.3.0"
+    "graphql-request": "^3.3.0",
+    "jspdf": "^2.5.1"
   }
 }
