@@ -7,7 +7,7 @@
   import { Datepicker } from 'svelte-calendar';
 
   let value = '';
-  let open = false;
+  let open = true;
   let response = 'Nothing yet.';
   let focused = false;
   let dirty = false;
@@ -44,13 +44,14 @@
 >
   <Header>
     <Title id="fullscreen-title">Add a New Goal</Title>
-    <IconButton action="close" class="material-icons">X</IconButton>
+    <IconButton action="close" class="material-icons xbutton">X</IconButton>
   </Header>
   <Content id="fullscreen-content">
     <div class="margins">
       <Textfield textarea bind:value label="Add a new goal bruh!">
           <HelperText slot="helper"></HelperText>
         </Textfield>
+			Pick a date
      </div> 
      <Datepicker />
   </Content>
@@ -62,9 +63,35 @@
       <Label>Add New Goal</Label>
     </Button>
   </Actions>
-
 </Dialog>
 
-
+<style>
+	:global(.xbutton){		
+		display: flex;
+		align-items: right;
+		justify-content: right;
+		flex-direction: row;
+		height: 20px;
+		width: 20px;}
+	:global(.textbox){
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 150px;}
+	:global:(.datepicker){		
+		display: flex;
+		align-items: left;
+		justify-content: left;
+		flex-direction: row;
+		padding: 150px;}
+	:global:(.buttongrouping){
+		display: flex;
+		align-items: left;
+		justify-content: left;
+		flex-direction: row;
+		padding: 150px;}
+</style>
 
 <pre class="status">Response: {response}</pre>
+
