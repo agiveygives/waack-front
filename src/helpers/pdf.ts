@@ -28,7 +28,7 @@ your behavior and how that demonstrates the above criteria.`
     doc.text(text, 20, startingLine + 10)
 }
 
-export const exportPDF = (name = 'Ashley', promotion = 'Solution Architect') => {
+export const exportPDF = (name: string, promotion: string) => {
     const doc = new jsPDF();
     doc.setFont('ariel')
 
