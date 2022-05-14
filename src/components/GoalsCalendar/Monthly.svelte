@@ -2,38 +2,24 @@
   import Calendar from '@comp/Calendar';
   import type { CalendarItemType } from '@comp/Calendar/CalendarUtils';
 
-  const now = new Date();
 	export let year;
 	export let month;
+  export let goals = [];
 
-  let todos = [
-    'write good code'
-  ]
+  let todos = goals.filter((goal) => !goal.started);
 
-  let inProgress = [
-    'drink beer',
-    'finish clash project'
-  ]
+  let inProgress = goals.filter((goal) => goal.started && !goal.complete);
 
-  function randInt(max) {
-    return Math.floor(Math.random()*max)+1;
-  }
-
-  let completedItems: CalendarItemType[] = [
-    {
-      title:"11:00 Task Early in month",
-      date: new Date(year,month, 11)
-    },
-    {
-      title:"7:30 Wk 2 tasks",
-      date: now
-    },
-    {
-      title:"Overlapping Stuff",
-      date: now,
-      isBottom:true
-    }
-  ];
+  let completedItems = goals
+    .filter((goal) => {
+      return new Date(goal.complete).getMonth() === month
+    })
+    .map((goal) => (
+      {
+        title: goal.name,
+        date: new Date(goal.complete)
+      }
+    ));
 
   let zones = [
     {
@@ -88,13 +74,13 @@
         on:drop={event => drop(event, zoneIndex)}
         ondragover="return false"
       >
-        {#each zone.items as item, itemIndex (`${item}-${itemIndex}`)}
+        {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
           <div>
             <li
               draggable={true}
               on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
             >
-              {item}
+              {item.name}
             </li>
           </div>
         {/each}

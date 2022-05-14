@@ -1,22 +1,65 @@
 <script>
-  let todos = [
-    'write good code'
-  ]
+  export let goals = [];
 
-  let inProgress = [
-    'drink beer',
-    'finish clash project'
-  ]
+  let todos = goals.filter((goal) => !goal.started);
+
+  let inProgress = goals.filter((goal) => goal.started && !goal.complete);
 
   let complete = {
     monday: [],
-    tuesday: ['fly to Atlanta'],
-    wednesday: ['Start Clash'],
-    thursday: ['Eat Waffle House'],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
     friday: [],
     saturday: [],
-    sunday: ['Fly to Kansas City']
+    sunday: []
   };
+
+  goals
+    .filter((goal) => {
+      const goalDate = new Date(goal.complete).getDate();
+
+      const todayObj = new Date();
+      const todayDate = todayObj.getDate();
+      const todayDay = todayObj.getDay();
+
+      // get first date of week
+      const firstDayOfWeek = new Date(todayObj.setDate(todayDate - todayDay));
+
+      // get last date of week
+      const lastDayOfWeek = new Date(firstDayOfWeek);
+      lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
+
+      // if date is equal or within the first and last dates of the week
+      return goalDate >= firstDayOfWeek && goalDate <= lastDayOfWeek;
+    })
+    .map((goal) => {
+      const goalDay = new Date(goal.complete).getDate();
+
+      switch (goalDay) {
+        case 0:
+          complete.sunday.push(goal);
+          break;
+        case 1:
+          complete.monday.push(goal);
+          break;
+        case 2:
+          complete.tuesday.push(goal);
+          break;
+        case 3:
+          complete.wednesday.push(goal);
+          break;
+        case 4:
+          complete.thursday.push(goal);
+          break;
+        case 5:
+          complete.friday.push(goal);
+          break;
+        case 6:
+          complete.saturday.push(goal);
+          break;
+      }
+    })
 
   let zones = [
     {
@@ -102,13 +145,13 @@
         on:drop={event => drop(event, zoneIndex)}
         ondragover="return false"
       >
-        {#each zone.items as item, itemIndex (`${item}-${itemIndex}`)}
+        {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
           <div>
             <li
               draggable={true}
               on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
             >
-              {item}
+              {item.name}
             </li>
           </div>
         {/each}
@@ -126,10 +169,10 @@
               class='day-container'
               class:hovering={hoveringOverZone === zone.name}
             >
-              {#each zone.items as item, itemIndex (`${item}-${itemIndex}`)}
+              {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
                 <div>
                   <li>
-                    {item}
+                    {item.name}
                   </li>
                 </div>
               {/each}

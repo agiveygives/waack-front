@@ -1,10 +1,12 @@
 <script lang="ts">
+  import CircularProgress from '@smui/circular-progress';
 	import IconButton from '@smui/icon-button';
   import Select, { Option } from '@smui/select';
   import Button, { Icon, Label } from '@smui/button';
   import { Daily, Weekly, Monthly } from '@comp/GoalsCalendar';
   import { nextMonth, prevMonth } from '@comp/Calendar/CalendarUtils';
   import { Header } from '@comp/Header';
+  import { goals } from '@waack-gql/queries/goals.ts';
 
   let calendarOptions = ['Daily', 'Weekly', 'Monthly'];
 
@@ -72,15 +74,22 @@
   </span>
 </span>
 
-{#if value === 'Daily'}
-  <Daily />
-{:else if value === 'Weekly'}
-  <Weekly />
-{:else if value === 'Monthly'}
-  <Monthly
-    {month}
-    {year}
-  />
+{#if $goals.status === 'lodaing'}
+  <CircularProgress style="height: 32px; width: 32px;" indeterminate />
+{:else if $goals.status === 'success'}
+  {#if value === 'Daily'}
+    <Daily goals={$goals.data} />
+  {:else if value === 'Weekly'}
+    <Weekly goals={$goals.data} />
+  {:else if value === 'Monthly'}
+    <Monthly
+      goals={$goals.data}
+      {month}
+      {year}
+    />
+  {/if}
+{:else if $goals.status === 'error'}
+  <p>{$goals.error.message}</p>
 {/if}
 
 <style>

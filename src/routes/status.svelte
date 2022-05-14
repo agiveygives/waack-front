@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { status } from '../graphql/queries/status.ts';
+  import { status } from '@waack-gql/queries/status.ts';
 </script>
 
 {$status.status}

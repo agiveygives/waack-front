@@ -1,16 +1,13 @@
 <script>
-  let todos = [
-    'write good code'
-  ]
+  export let goals = [];
 
-  let inProgress = [
-    'drink beer',
-    'finish clash project'
-  ]
+  let todos = goals.filter((goal) => !goal.started);
 
-  let complete = [
-    'fly to Atlanta'
-  ]
+  let inProgress = goals.filter((goal) => goal.started && !goal.complete);
+
+  let complete = goals.filter((goal) => {
+    return new Date(goal.complete).getDate() === new Date().getDate()
+  });
 
   let zones = [
     {
@@ -70,15 +67,13 @@
         on:drop={event => drop(event, zoneIndex)}
         ondragover="return false"
       >
-        {#each zone.items as item, itemIndex (`${item}-${itemIndex}`)}
-          <div>
-            <li
-              draggable={true}
-              on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
-            >
-              {item}
-            </li>
-          </div>
+        {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
+          <li
+            draggable={true}
+            on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
+          >
+            {item.name}
+          </li>
         {/each}
       </ul>
     </div>
@@ -100,9 +95,6 @@
   }
   .hovering {
     border-color: orange;
-  }
-  .item {
-    display: block;
   }
   li {
     background-color: lightgray;
