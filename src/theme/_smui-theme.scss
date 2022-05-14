@@ -4,10 +4,10 @@
 
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
-  $primary: #ff3e00,
-  $secondary: #676778,
-  $surface: #fff,
-  $background: #fff,
+  $primary: #562C2C,
+  $secondary: #0E9594,
+  $surface: #f8ead5,
+  $background: #f8ead5,
   $error: color-palette.$red-900
 );
 
@@ -22,10 +22,10 @@ body {
 }
 
 a {
-  color: #40b3ff;
+  color: #F2542D;
 }
 a:visited {
-  color: color.scale(#40b3ff, $lightness: -35%);
+  color: color.scale(#F2542D, $lightness: -35%);
 }
 
 .app {

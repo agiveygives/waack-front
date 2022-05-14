@@ -16,18 +16,34 @@
 	const titleCategories = ['developer', 'senior developer', 'solution architect'];
 	let title = '';
 
-	const handleCreate = (event: Event) => {
-		// just a fake way to populate the store for now
+	const handleCreate = async (event: Event) => {
+		const url = 'http://localhost:8080/auth/register';
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name,
+				password,
+				email,
+				title,
+				manager
+			})
+		});
+		const loginCookie = await response.text();
+		setLoginCookie(loginCookie);
 		userInfo.set({
 			name,
 			email,
 			title,
 			manager
 		});
-		setLoginCookie(email);
 		goto('/main/nav');
 	};
 </script>
+
+<svelte:head><title>Trebuchet</title></svelte:head>
 
 <div class="main">
 	<Paper>
@@ -35,7 +51,13 @@
 			<Textfield class="shaped-filled" variant="filled" bind:value={email} label="email address">
 				<Icon class="material-icons" slot="leadingIcon">person</Icon>
 			</Textfield>
-			<Textfield class="shaped-filled" variant="filled" bind:value={password} label="password">
+			<Textfield
+				class="shaped-filled"
+				variant="filled"
+				bind:value={password}
+				label="password"
+				type="password"
+			>
 				<Icon class="material-icons" slot="leadingIcon">lock</Icon>
 			</Textfield>
 			<Textfield class="shaped-filled" variant="filled" bind:value={name} label="name">

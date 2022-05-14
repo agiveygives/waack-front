@@ -1,5 +1,4 @@
 <script lang="ts">
-
   import Dialog from '@smui/dialog';
   import CircularProgress from '@smui/circular-progress';
 	import IconButton from '@smui/icon-button';
