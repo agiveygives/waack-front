@@ -6,13 +6,20 @@
   import HelperText from '@smui/textfield/helper-text';
   import Select, { Option } from '@smui/select';
   import Icon from '@smui/select/icon';
+  import Chip, { Set, Text, TrailingAction } from '@smui/chips';
+  import { goal } from '@waack-gql/mutations/createGoal.ts';
 
   export let open = false;
+  export let refetchGoals = () => null;
 
-  let fruits = ['Technical Ability', 'Client Satisfaction/Feedback', 'Leadership', 'Nerdiness', 'Misc.'];
+  let categories = ['Technical Ability', 'Client Satisfaction/Feedback', 'Leadership', 'Nerdiness', 'Misc.'];
 
-  let value = '';
-  let valueHelperText = '';
+  let tagToAdd = '';
+
+  let tagsToAdd = [];
+
+  let name = '';
+  let category = '';
   let valueLeadingIcon = '';
   let valueInvalid = '';
   let response = 'Nothing yet.';
@@ -20,13 +27,7 @@
   let dirty = false;
   let invalid = false;
   let selected;
-  $: disabled = focused || !value || !dirty || invalid;
-
-  function clickHandler() {
-    alert(`Sending to ${value}!`);
-    value = null;
-    dirty = false;
-  }
+  $: disabled = focused || !name || !dirty || invalid;
 </script>
 
 <Dialog
@@ -40,35 +41,111 @@
     <IconButton action="close" class="material-icons">close</IconButton>
   </Header>
   <Content id="fullscreen-content">
-    <div class="margins textbox">
-      <Textfield textarea bind:value label="Add a new goal bruh!">
-        <HelperText slot="helper"></HelperText>
-      </Textfield>
+    <div class='container'>
+      <div class="textbox">
+        <Textfield
+          style="height: 70%; width: 90%;"
+          helperLine$style="height: 70%; width: 90%;"
+          textarea
+          bind:value={name}
+          label="Add a new goal bruh!"
+        >
+          <HelperText slot="helper"></HelperText>
+        </Textfield>
+      </div>
+      <div class='categories'>
+        <Select style="width: 90%;" bind:value={category} label="Select a Category">
+          <Option value="" />
+          {#each categories as category}
+            <Option value={category}>{category}</Option>
+          {/each}
+          <svelte:fragment slot="helperText"></svelte:fragment>
+        </Select>
+      </div>
+      <div class='tags'>
+        <span class='tag-input'>
+          <Textfield
+            style='width: 75%;'
+            variant="outlined"
+            bind:value={tagToAdd}
+            label="Add a Tag"
+          >
+            <Icon
+              class="material-icons"
+              slot="leadingIcon"
+              style="margin: auto 10px;"
+            >
+              local_offer
+            </Icon>
+          </Textfield>
+        </span>
+        <span>
+          <Button
+            variant="raised"
+            on:click={() => {
+              tagsToAdd = tagsToAdd.concat(tagToAdd);
+              tagToAdd = '';
+            }}
+          >
+            Add Tag
+          </Button>
+        </span>
+      </div>
+      <div class='added-tags'>
+        <Set bind:chips={tagsToAdd} let:chip input>
+          <Chip {chip}>
+            <Text>{chip}</Text>
+            <TrailingAction icon$class="material-icons">cancel</TrailingAction>
+          </Chip>
+        </Set>
+      </div>
     </div>
-    <Select bind:value={valueHelperText} label="Select a Category">
-      <Option value="" />
-      {#each fruits as fruit}
-        <Option value={fruit}>{fruit}</Option>
-      {/each}
-      <svelte:fragment slot="helperText"></svelte:fragment>
-    </Select>
   </Content>
   <Actions>
     <Button action="reject">
       <Label>Cancel</Label>
     </Button>
-    <Button action="accept" defaultAction>
+    <Button
+      action="accept"
+      defaultAction
+      on:click={() => {
+        goal.create(name, [category, ...tagsToAdd], refetchGoals)
+      }}
+    >
       <Label>Add New Goal</Label>
     </Button>
   </Actions>
 </Dialog>
 
 <style>
-  .textbox{
-    display: flex;
-    flex-direction: column;
+  .container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-gap: 20px;
+    min-height: 40vh;
+  }
+  .textbox {
     padding: 10px;
-    min-height: 50px;
+    height: 100%;
+    width: 100%;
+    grid-column: 1 / 2;
+    grid-row: 1 / 5;
+  }
+  .categories {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+  .tags {
+    width: 100%;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+  .added-tags {
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
   }
 </style>
 

@@ -1,7 +1,7 @@
 import { readable } from 'svelte/store';
 import { gql } from 'graphql-request';
 import graphQLClient from '../client';
-import type QueryResType from './types';
+import type QueryResType from '../types';
 
 const getStatus = async () => {
   const { status } = await graphQLClient.request(

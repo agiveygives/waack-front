@@ -23,9 +23,11 @@
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   let open = false;
+
+  $: goals, goals.refetch
 </script>
 
-<CreateGoal {open} />
+<CreateGoal {open} refetchGoals={goals.refetch} />
 
 <Header header="Goals" />
 <span class='header-controls'>
@@ -81,7 +83,7 @@
   </span>
 </span>
 
-{#if $goals.status === 'lodaing'}
+{#if $goals.status === 'loading'}
   <CircularProgress style="height: 32px; width: 32px;" indeterminate />
 {:else if $goals.status === 'success'}
   {#if value === 'Daily'}
