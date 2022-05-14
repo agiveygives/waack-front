@@ -1,3 +1,3 @@
-import Calendar from './CalendarRenderer.svelte';
+import Calendar from './Calendar.svelte';
 
 export default Calendar;

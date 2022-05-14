@@ -1,34 +1,56 @@
 <script>
-  import {createEventDispatcher, onMount} from 'svelte';
+  import { onMount } from 'svelte';
+  import { initMonth, initMonthItems } from './CalendarUtils.ts';
 
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  export let days = [];
   export let items = [];
-  console.log(items)
 
-  let dispatch = createEventDispatcher();
+  let days = [];
 
+  let completedItems = items;
+
+  const itemClick = (e) => {
+    eventText='itemClick '+JSON.stringify(e) + ' localtime='+e.date.toString();
+  }
+  const dayClick = (e) => {
+    eventText='onDayClick '+JSON.stringify(e) + ' localtime='+e.date.toString();
+  }
+  const headerClick = (e) => {
+    eventText='onHheaderClick '+JSON.stringify(e);
+  }
+
+  let now = new Date();
+  export let year;
+  export let month;
+
+  $: month,year,initContent();
+
+  // choose what date/day gets displayed in each date box.
+  function initContent() {
+    days = initMonth(month, year);
+    completedItems = initMonthItems(days, items);
+  }
 </script>
 
 <div class="calendar">
   {#each dayNames as dayName}
-    <span class="day-name" on:click={()=>dispatch('headerClick',dayName)}>{dayName}</span>
+    <span class="day-name" on:click={()=> headerClick(dayName)}>{dayName}</span>
   {/each}
 
   {#each days as day}
     {#if day.enabled}
-      <span class="day" on:click={()=>dispatch('dayClick',day)}>{day.name}</span>
+      <span class="day" on:click={()=> dayClick(day)}>{day.name}</span>
     {:else}
-      <span class="day day-disabled" on:click={()=>dispatch('dayClick',day)}>{day.name}</span>
+      <span class="day day-disabled" on:click={()=> dayClick(day)}>{day.name}</span>
     {/if}
   {/each}
 
-  {#each items as item}
+  {#each completedItems as item}
     <section
-      on:click={()=>dispatch('itemClick',item)}
+      on:click={()=> itemClick(item)}
       class="task {item.className}"
-      style="grid-column: {item.startCol} / span {item.len};
+      style="grid-column: {item.startCol} / span 1;
       grid-row: {item.startRow};
       align-self: {item.isBottom?'end':'center'};"
       >
@@ -47,6 +69,7 @@
 .calendar {
   display: grid;
   width: 100%;
+  background-color: white;
   grid-template-columns: repeat(7, minmax(120px, 1fr));
   grid-template-rows: 50px;
   grid-auto-rows: 120px;
@@ -132,6 +155,12 @@
   align-self: center;
   z-index:2;
   border-radius: 15px;
+
+  background: rgba(218, 231, 255, 0.7);
+  color: #0a5eff;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 14px rgba(71, 134, 255, 0.4);
 }
 .task--warning {
   border-left-color: #fdb44d;

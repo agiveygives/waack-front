@@ -1,5 +1,11 @@
 export const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+type DayType = {
+  name: string,
+  enabled: boolean,
+  date: Date,
+}
+
 export const initMonth = (month: number, year: number) => {
   const days = [];
 
@@ -35,21 +41,26 @@ export const initMonth = (month: number, year: number) => {
 
 export type CalendarItemType = {
   title: string,
-  date: Date
+  date: Date,
+  startCol?: number,
+  startRow?: number,
 }
 
-const findRowCol = (days, dt) => {
+const findRowCol = (days: DayType[], dt: Date) => {
   for (let i=0;i<days.length;i++) {
     const d = days[i].date;
-    if (d.getYear() === dt.getYear()
+    if (d.getFullYear() === dt.getFullYear()
       && d.getMonth() === dt.getMonth()
       && d.getDate() === dt.getDate())
-      return {row:Math.floor(i/7)+2,col:i%7+1};
+      return {
+        row: Math.floor(i / 7) + 2,
+        col: i % 7 + 1
+      };
   }
   return null;
 }
 
-export const initMonthItems = (days, items: CalendarItemType[]) => {
+export const initMonthItems = (days: DayType[], items: CalendarItemType[]) => {
   const monthItems = [];
 
   for (const i of items) {
@@ -69,4 +80,31 @@ export const initMonthItems = (days, items: CalendarItemType[]) => {
   }
 
   return monthItems;
+}
+
+export const nextMonth = (month: number, year: number) => {
+  month++;
+
+  if (month == 12) {
+    year++;
+    month=0;
+  }
+
+  return {
+    month,
+    year
+  }
+}
+export const prevMonth = (month: number, year: number) => {
+  if (month==0) {
+    month=11;
+    year--;
+  } else {
+    month--;
+  }
+
+  return {
+    month,
+    year
+  }
 }

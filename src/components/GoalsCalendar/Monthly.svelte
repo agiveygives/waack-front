@@ -2,9 +2,9 @@
   import Calendar from '@comp/Calendar';
   import type { CalendarItemType } from '@comp/Calendar/CalendarUtils';
 
-	let now = new Date();
-	let year = now.getFullYear();		//	this is the month & year displayed
-	let month = now.getMonth();
+  const now = new Date();
+	export let year;
+	export let month;
 
   let todos = [
     'write good code'
@@ -20,41 +20,20 @@
   }
 
   let completedItems: CalendarItemType[] = [
-			{
-        title:"11:00 Task Early in month",
-        className:"task--primary",
-        date:new Date(year,month,randInt(6)),
-        len:randInt(4)+1
-      },
-			{
-        title:"7:30 Wk 2 tasks",
-        className:"task--warning",
-        date:now,
-        len:randInt(4)+2
-      },
-			{
-        title:"Overlapping Stuff (isBottom:true)",
-        date:now,
-        className:"task--info",
-        len:4,
-        isBottom:true
-      },
-			{
-        title:"10:00 More Stuff to do",
-        date:new Date(year,month,randInt(7)+14),
-        className:"task--info",
-        len:randInt(4)+1,
-        detailHeader:"Difficult",
-        detailContent:"But not especially so"
-      },
-			{
-        title:"All day task",
-        date:new Date(year,month,randInt(7)+21),
-        className:"task--danger",
-        len:1,
-        vlen:2
-      },
-		];
+    {
+      title:"11:00 Task Early in month",
+      date: new Date(year,month, 11)
+    },
+    {
+      title:"7:30 Wk 2 tasks",
+      date: now
+    },
+    {
+      title:"Overlapping Stuff",
+      date: now,
+      isBottom:true
+    }
+  ];
 
   let zones = [
     {
@@ -126,6 +105,8 @@
   <div class='week-container'>
     <div class='col-header'>Completed</div>
       <Calendar
+        {month}
+        {year}
         items={completedItems}
       />
   </div>
