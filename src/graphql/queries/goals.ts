@@ -4,24 +4,30 @@ import graphQLClient from '../client';
 import type QueryResType from '../types';
 
 const getGoals = async () => {
-  const { goals } = await graphQLClient.request(
+  const { goalsByCurrentUser: { edges } } = await graphQLClient.request(
     gql`
       query {
-        goals {
-          id,
-          name,
-          created,
-          started,
-          complete,
-          tags,
-          owner {
-            id,
-            name
+        goalsByCurrentUser {
+          edges {
+            node {
+              uuid,
+              name,
+              created,
+              started,
+              complete,
+              tags,
+              owner {
+                id,
+                name
+              }
+            }
           }
         }
       }
     `
   )
+
+  const goals = edges.map((edge: { node: unknown }) => edge.node)
 
   return goals;
 }
