@@ -43,6 +43,8 @@
 	};
 </script>
 
+<svelte:head><title>Trebuchet</title></svelte:head>
+
 <div class="main">
 	<Paper>
 		<div class="signup">

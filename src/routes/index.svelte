@@ -17,4 +17,4 @@
 	});
 </script>
 
-<svelte:head><title>WAACK</title></svelte:head>
+<svelte:head><title>Trebuchet</title></svelte:head>
