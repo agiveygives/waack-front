@@ -4,10 +4,13 @@
 	import Button from '@smui/button';
 	import { Label } from '@smui/common';
 	import DataTable, { Body, Row, Cell } from '@smui/data-table';
+	import type { User } from '../../types/user';
 	import cookies from '../../helpers/cookies';
+	import { initialUserInfo, userInfo } from '../../store/login';
 
-	let name = '';
-	let username = '';
+	let userValue: User = initialUserInfo;
+
+	userInfo.subscribe((value) => (userValue = value));
 	const handleLogout = async () => {
 		const url = 'http://localhost:8080/auth/logout';
 		await fetch(url, {
@@ -26,11 +29,19 @@
 		<Body>
 			<Row>
 				<Cell>Username</Cell>
-				<Cell>{username}</Cell>
+				<Cell>{userValue.email}</Cell>
 			</Row>
 			<Row>
 				<Cell>Name</Cell>
-				<Cell>{name}</Cell>
+				<Cell>{userValue.name}</Cell>
+			</Row>
+			<Row>
+				<Cell>Manager</Cell>
+				<Cell>{userValue.manager}</Cell>
+			</Row>
+			<Row>
+				<Cell>Title</Cell>
+				<Cell>{userValue.title}</Cell>
 			</Row>
 		</Body>
 	</DataTable>
@@ -38,7 +49,7 @@
 	<h3>
 		Are you sure you want log out? If you forget your password you can never come back in.....and
 		will then be unable to get promoted....and then will lose your job.....and then will never again
-		recieve gainful employment
+		receive gainful employment
 	</h3>
 	<Button on:click={handleLogout} variant="unelevated" color="primary" style="width: 80%;">
 		<Label>Logout</Label>

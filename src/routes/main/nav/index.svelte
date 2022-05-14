@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
+	import type { User } from '../../../types/user';
 	import { initialUserInfo, userInfo } from '../../../store/login';
 
-	let /** @type {import('../../../types/user').User} */ userValue = initialUserInfo;
+	let userValue: User = initialUserInfo;
 	userInfo.subscribe((value) => (userValue = value));
 </script>
 
