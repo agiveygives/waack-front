@@ -2,8 +2,10 @@ import { writable } from 'svelte/store';
 import { gql } from 'graphql-request';
 import graphQLClient from '../client';
 import type QueryResType from '../types';
+import cookies from '../../helpers/cookies';
 
 const getGoals = async () => {
+  graphQLClient.setHeader('session_id', cookies.get('token'))
   const { goalsByCurrentUser: { edges } } = await graphQLClient.request(
     gql`
       query {
@@ -33,12 +35,12 @@ const getGoals = async () => {
 }
 
 function userGoals() {
-	const { subscribe, update } = writable<QueryResType>({
+  const { subscribe, update } = writable<QueryResType>({
     status: 'loading',
     data: null,
   });
 
-  const subscribeToStore =  () => {
+  const subscribeToStore = () => {
     getGoals()
       .then((response) => {
         update(() => ({
@@ -56,9 +58,9 @@ function userGoals() {
     return subscribe;
   }
 
-	return {
-		subscribe: subscribeToStore(),
-		refetch: () => {
+  return {
+    subscribe: subscribeToStore(),
+    refetch: () => {
       update(() => ({
         status: 'loading'
       }));
@@ -77,7 +79,7 @@ function userGoals() {
           }))
         })
     }
-	};
+  };
 }
 
 export const goals = userGoals();
