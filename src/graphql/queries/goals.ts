@@ -36,7 +36,7 @@ const getGoals = async () => {
 
 function userGoals() {
   const { subscribe, update } = writable<QueryResType>({
-    status: 'loading',
+    status: 'refresh',
     data: null,
   });
 
