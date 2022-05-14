@@ -2,7 +2,7 @@
 	import { Header as HeaderComponent } from '@comp/Header/';
 	import Accordion from '@smui-extra/accordion';
 	import { Accomplishment } from '@comp/Accomplishment';
-	import { AddAccomplishment } from '@comp/AddAccomplishment';
+	import { CreateAccomplishment } from '@comp/CreateAccomplishment';
 	import { accomplishments } from '@waack-gql/queries/accomplishments.ts';
 	import CircularProgress from '@smui/circular-progress';
 	import Button from '@smui/button';
@@ -12,12 +12,11 @@
 	const toggleModal = () => {
 		addModalOpen = !addModalOpen;
 	};
-
-	function handleAdd(event: Accomplishment) {}
+	$: accomplishments, accomplishments.refetch;
 </script>
 
 <HeaderComponent header="Accomplishments" />
-<AddAccomplishment bind:open={addModalOpen} on:addAccomplishment={handleAdd} />
+<CreateAccomplishment bind:open={addModalOpen} refetchAccomplishments={accomplishments.refetch} />
 <div>
 	<Button on:click={toggleModal}>
 		<Icon class="material-icons">add</Icon>

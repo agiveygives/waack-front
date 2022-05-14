@@ -1,4 +1,4 @@
-import { readable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { gql } from 'graphql-request';
 import graphQLClient from '../client';
 import type QueryResType from '../types';
@@ -26,29 +26,52 @@ const getAccomplishments = async () => {
     return accomplishments;
 }
 
-export const accomplishments = readable<QueryResType>(
-    {
+function userAccomplishments() {
+    const { subscribe, update } = writable<QueryResType>({
         status: 'loading',
         data: null,
-    },
-    set => {
-        set({
-            status: 'loading',
-            data: null,
-        });
+    });
 
+    const subscribeToStore = () => {
         getAccomplishments()
             .then((response) => {
-                set({
+                update(() => ({
                     status: 'success',
                     data: response
-                })
+                }))
             })
             .catch((err) => {
-                set({
+                update(() => ({
                     status: 'error',
-                    error: err,
-                })
+                    error: err
+                }))
             })
+
+        return subscribe;
     }
-);
+
+    return {
+        subscribe: subscribeToStore(),
+        refetch: () => {
+            update(() => ({
+                status: 'loading'
+            }));
+
+            getAccomplishments()
+                .then((response) => {
+                    update(() => ({
+                        status: 'success',
+                        data: response
+                    }))
+                })
+                .catch((err) => {
+                    update(() => ({
+                        status: 'error',
+                        error: err
+                    }))
+                })
+        }
+    };
+}
+
+export const accomplishments = userAccomplishments();
