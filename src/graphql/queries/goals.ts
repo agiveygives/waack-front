@@ -8,6 +8,7 @@ const getGoals = async () => {
     gql`
       query {
         goals {
+          id,
           name,
           created,
           started,
