@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
-import path from 'path';
+import path from 'path'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,17 +15,14 @@ const config = {
 		methodOverride: {
 			allowed: ['PATCH', 'DELETE']
 		},
-
-	},
-	vite: {
-		ssr: {
-			noExternal: [ 'dayjs' ]
-		},
-		resolve: {
-			alias: {
-				'@comp': path.resolve('./src/components'),
+		vite: {
+			resolve: {
+				alias: {
+					'@comp': path.resolve('./src/components'),
+				}
 			}
 		}
 	}
 };
+
 export default config;
