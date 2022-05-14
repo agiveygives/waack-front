@@ -3,5 +3,5 @@ export interface Accomplishment {
     description: string;
     name: string;
     uploadedFiles?: FileList | null;
-    tags?: string;
+    tags?: string[];
 }

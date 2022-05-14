@@ -4,7 +4,10 @@
 	import type { Accomplishment } from '../../types/accomplishment';
 	import { initialAccomplishmentData } from '../../store/accomplishments';
 	export let accomplishment: Accomplishment = initialAccomplishmentData;
-	const tags = accomplishment?.tags?.split(',');
+	const tags =
+		accomplishment && accomplishment.tags && accomplishment.tags[0]
+			? accomplishment.tags[0].split(',')
+			: [];
 </script>
 
 <Panel>
