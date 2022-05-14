@@ -78,15 +78,11 @@
 		overflow: visible;
 	}
 	.content {
-		padding: 50px 20px;
+		margin: 50px 20px;
 		width: 100%;
 		max-width: 100%;
 		display: flex;
 		flex-direction: column;
-	}
-	.content {
-		padding: 50px 75px;
-		width: 100%;
 	}
 	:global(.arrow) {
 		transform: rotate(45deg);
