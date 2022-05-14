@@ -19,6 +19,7 @@ const config = {
 			resolve: {
 				alias: {
 					'@comp': path.resolve('./src/components'),
+					'@waack-gql': path.resolve('./src/graphql')
 				}
 			}
 		}

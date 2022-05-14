@@ -1,13 +1,25 @@
-<script>
+<script lang='ts'>
+  import Calendar from '@comp/Calendar';
+  import type { CalendarItemType } from '@comp/Calendar/CalendarUtils';
+
+	export let year;
+	export let month;
   export let goals = [];
 
   let todos = goals.filter((goal) => !goal.started);
 
   let inProgress = goals.filter((goal) => goal.started && !goal.complete);
 
-  let complete = goals.filter((goal) => {
-    return new Date(goal.complete).getDate() === new Date().getDate()
-  });
+  let completedItems = goals
+    .filter((goal) => {
+      return new Date(goal.complete).getMonth() === month
+    })
+    .map((goal) => (
+      {
+        title: goal.name,
+        date: new Date(goal.complete)
+      }
+    ));
 
   let zones = [
     {
@@ -18,10 +30,6 @@
       name: 'In Progress',
       items: inProgress
     },
-    {
-      name: 'Complete',
-      items: complete
-    }
   ];
 
   let hoveringOverZone;
@@ -30,8 +38,8 @@
     // The data we want to make available when the element is dropped
     // is the index of the item being dragged and
     // the index of the zone from which it is leaving.
-    const data = {zoneIndex, itemIndex};
-      event.dataTransfer.setData('text/plain', JSON.stringify(data));
+    const data = { zoneIndex, itemIndex };
+    event.dataTransfer.setData('text/plain', JSON.stringify(data));
   }
 
   function drop(event, zoneIndex) {
@@ -56,7 +64,6 @@
     <div
       class:todo={zoneIndex === 0}
       class:in-progress={zoneIndex === 1}
-      class:complete={zoneIndex === 2}
     >
       <div class='col-header'>{zone.name}</div>
       <ul
@@ -68,16 +75,27 @@
         ondragover="return false"
       >
         {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
-          <li
-            draggable={true}
-            on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
-          >
-            {item.name}
-          </li>
+          <div>
+            <li
+              draggable={true}
+              on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
+            >
+              {item.name}
+            </li>
+          </div>
         {/each}
       </ul>
     </div>
   {/each}
+
+  <div class='week-container'>
+    <div class='col-header'>Completed</div>
+      <Calendar
+        {month}
+        {year}
+        items={completedItems}
+      />
+  </div>
 </div>
 
 <style>
@@ -86,7 +104,8 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-auto-columns: 33%;
+    grid-auto-columns: 50%;
+    grid-auto-rows: 33%;
     grid-gap: 10px;
   }
   .col-header {
@@ -95,6 +114,9 @@
   }
   .hovering {
     border-color: orange;
+  }
+  .item {
+    display: block;
   }
   li {
     background-color: lightgray;
@@ -114,21 +136,45 @@
     height: 40px; /* needed when empty */
     padding: 10px;
   }
+
   .goals-container {
     height: 100%;
-    border-radius: 5px;
     border: white solid 1px;
     text-align: center;
+    border-radius: 5px;
   }
   .todo {
     grid-column: 1 / 2;
+    grid-row: 1 / 2;
   }
-
   .in-progress {
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
   }
 
-  .complete {
-    grid-column: 3 / 4;
+  .week-container {
+    margin-top: 100px;
+    height: 100%;
+    text-align: center;
+    grid-row: 2 / 4;
+    grid-column: 1 / 3;
+  }
+  .days-container {
+    height: 100%;
+    text-align: center;
+    display: grid;
+    grid-auto-columns: 13.75%;
+    grid-gap: 10px;
+    padding-top: 20px;
+  }
+  .day-container {
+    height: 100%;
+    border-radius: 5px;
+  }
+  .sunday {
+    grid-column: 7 / 8;
+  }
+  .completed-item {
+    draggable: none;
   }
 </style>
