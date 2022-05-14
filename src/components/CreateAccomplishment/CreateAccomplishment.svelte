@@ -4,34 +4,26 @@
 	import Textfield from '@smui/textfield';
 	import IconButton from '@smui/icon-button';
 	import Button, { Label } from '@smui/button';
+	import { accomplishment } from '@waack-gql/mutations/createAccomplishment.ts';
 
 	export let open = false;
+	export let refetchAccomplishments = () => null;
 
-	let date: string = '';
+	let name: string = '';
 	let description: string = '';
-	let content: string = '';
 	let tags: string = '';
 	let uploadedFiles: FileList | null = null;
 
-	const dispatch = createEventDispatcher();
-
 	function clearData() {
-		console.log('here');
-		date = '';
+		name = '';
 		description = '';
-		content = '';
+		tags = '';
 		uploadedFiles = null;
 	}
 
 	function closeHandler(e: CustomEvent<{ action: string }>) {
 		if (e.detail.action === 'accept') {
-			dispatch('addAccomplishment', {
-				date,
-				description,
-				content,
-				uploadedFiles,
-				tags
-			});
+			accomplishment.create(name, description, [tags], refetchAccomplishments);
 		}
 		clearData();
 	}
@@ -49,14 +41,13 @@
 		<IconButton action="close" class="material-icons">close</IconButton>
 	</Header>
 	<Content id="fullscreen-content" class="modal-content">
-		<Textfield class="shaped-filled" variant="filled" bind:value={date} label="date" />
+		<Textfield class="shaped-filled" variant="filled" bind:value={name} label="name" />
 		<Textfield
 			class="shaped-filled"
 			variant="filled"
 			bind:value={description}
 			label="description"
 		/>
-		<Textfield class="shaped-filled" variant="filled" bind:value={content} label="content" />
 		<div class="hide-file-ui">
 			<Textfield
 				class="shaped-filled"

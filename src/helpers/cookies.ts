@@ -6,7 +6,7 @@ function set(cookieName: string, cookieValue: string, exdays: number) {
 }
 
 function get(cookieName: string): string {
-    if (document) {
+    if (typeof document !== 'undefined') {
         const name: string = cookieName + "=";
         const decodedCookie: string = decodeURIComponent(document.cookie);
         const ca: string[] = decodedCookie.split(';');

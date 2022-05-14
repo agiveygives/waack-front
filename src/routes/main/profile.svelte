@@ -7,6 +7,7 @@
 	import type { User } from '../../types/user';
 	import cookies from '../../helpers/cookies';
 	import { initialUserInfo, userInfo } from '../../store/login';
+	import { Icon } from '@smui/common';
 
 	let userValue: User = initialUserInfo;
 
@@ -25,46 +26,81 @@
 </script>
 
 <div class="flexbox-container">
-	<DataTable table$aria-label="People list">
-		<Body>
-			<Row>
-				<Cell>Username</Cell>
-				<Cell>{userValue.email}</Cell>
-			</Row>
-			<Row>
-				<Cell>Name</Cell>
-				<Cell>{userValue.name}</Cell>
-			</Row>
-			<Row>
-				<Cell>Manager</Cell>
-				<Cell>{userValue.manager}</Cell>
-			</Row>
-			<Row>
-				<Cell>Title</Cell>
-				<Cell>{userValue.title}</Cell>
-			</Row>
-		</Body>
-	</DataTable>
-
-	<h3>
-		Are you sure you want log out? If you forget your password you can never come back in.....and
-		will then be unable to get promoted....and then will lose your job.....and then will never again
-		receive gainful employment
-	</h3>
-	<Button on:click={handleLogout} variant="unelevated" color="primary" style="width: 80%;">
-		<Label>Logout</Label>
-	</Button>
+	<div class="flex-column">
+		<Icon class="material-icons">account_circle_outlined</Icon>
+		<h3>{userValue?.name || ''}</h3>
+		<p class="title">{userValue?.title || ''}</p>
+		<p class="logout">
+			Are you sure you want log out? If you forget your password you can never come back in.....and
+			will then be unable to get promoted....and then will lose your job.....and then will never
+			again receive gainful employment
+		</p>
+		<Button on:click={handleLogout} variant="unelevated" color="primary" style="width: 80%;">
+			<Label>Logout</Label>
+		</Button>
+	</div>
+	<div class="flex-column-1">
+		<DataTable table$aria-label="People list">
+			<Body>
+				<Row>
+					<Cell>Username</Cell>
+					<Cell>{userValue.email}</Cell>
+				</Row>
+				<Row>
+					<Cell>Name</Cell>
+					<Cell>{userValue.name}</Cell>
+				</Row>
+				<Row>
+					<Cell>Manager</Cell>
+					<Cell>{userValue.manager}</Cell>
+				</Row>
+				<Row>
+					<Cell>Title</Cell>
+					<Cell>{userValue.title}</Cell>
+				</Row>
+			</Body>
+		</DataTable>
+	</div>
+	<div class="flex-column">
+		<h3>Integrate With</h3>
+		<img src="/images/slack.png" alt="slack" />
+		<img src="/images/github.png" alt="github" />
+		<img src="/images/openair.png" alt="open air" />
+	</div>
 </div>
 
 <style>
 	.flexbox-container {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		padding: 10%;
+		align-items: flex-start;
+		justify-content: space-around;
+		flex-direction: row;
+		height: 100%;
+		padding: 20px;
+	}
+	.flex-column {
+		width: 20%;
+		margin: 0 10px;
+	}
+	.flex-column-1 {
+		flex: 1;
+	}
+	h3,
+	p {
+		margin: 0px;
+	}
+	.title {
+		text-transform: capitalize;
+		font-size: 12px;
+	}
+	.logout {
+		margin: 20px 0;
 	}
 	:global(.mdc-data-table) {
 		width: 100%;
+	}
+	img {
+		height: 45px;
+		margin: 20px 0;
 	}
 </style>
