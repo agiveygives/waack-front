@@ -62,7 +62,7 @@ function userGoals() {
     subscribe: subscribeToStore(),
     refetch: () => {
       update(() => ({
-        status: 'loading'
+        status: 'refresh'
       }));
 
       getGoals()
