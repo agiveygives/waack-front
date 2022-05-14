@@ -1,6 +1,7 @@
 <script lang='ts'>
   import Calendar from '@comp/Calendar';
   import type { CalendarItemType } from '@comp/Calendar/CalendarUtils';
+	import { Goal } from '@comp/Goal';
 
 	export let year;
 	export let month;
@@ -80,7 +81,7 @@
               draggable={true}
               on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
             >
-              {item.name}
+              <Goal goal={item} />
             </li>
           </div>
         {/each}
@@ -105,7 +106,6 @@
     width: 100%;
     display: grid;
     grid-auto-columns: 50%;
-    grid-auto-rows: 33%;
     grid-gap: 10px;
   }
   .col-header {
@@ -119,15 +119,7 @@
     display: block;
   }
   li {
-    background-color: lightgray;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  li:hover {
-    background: orange;
-    color: white;
+    list-style:none;
   }
   ul {
     border: solid lightgray 1px;
@@ -145,18 +137,15 @@
   }
   .todo {
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
   }
   .in-progress {
     grid-column: 2 / 3;
-    grid-row: 1 / 2;
   }
 
   .week-container {
     margin-top: 100px;
     height: 100%;
     text-align: center;
-    grid-row: 2 / 4;
     grid-column: 1 / 3;
   }
   .days-container {
