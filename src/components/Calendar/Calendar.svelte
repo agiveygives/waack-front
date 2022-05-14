@@ -161,6 +161,10 @@
   border: 0;
   border-radius: 14px;
   box-shadow: 0 10px 14px rgba(71, 134, 255, 0.4);
+  max-height: 25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 .task--warning {
   border-left-color: #fdb44d;

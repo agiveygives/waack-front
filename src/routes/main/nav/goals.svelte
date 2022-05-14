@@ -1,4 +1,5 @@
 <script lang="ts">
+	import IconButton from '@smui/icon-button';
   import Select, { Option } from '@smui/select';
   import Button, { Icon, Label } from '@smui/button';
   import { Daily, Weekly, Monthly } from '@comp/GoalsCalendar';
@@ -29,8 +30,11 @@
 
   <span class='month'>
     {#if value === 'Monthly'}
-      <button on:click={()=>year--}>&Lt;</button>
-      <button
+      <IconButton class='material-icons' on:click={()=>year--}>
+        keyboard_double_arrow_left
+      </IconButton>
+      <IconButton
+        class='material-icons'
         on:click={() => {
           const prev = prevMonth(month, year);
 
@@ -38,20 +42,25 @@
           year = prev.year;
         }}
       >
-        &lt;
-      </button>
+        keyboard_arrow_left
+      </IconButton>
+      <h2 class='month-text'>
         {monthNames[month]} {year}
-      <button
-      on:click={() => {
-        const next = nextMonth(month, year);
+      </h2>
+      <IconButton
+        class='material-icons'
+        on:click={() => {
+          const next = nextMonth(month, year);
 
-        month = next.month;
-        year = next.year;
-      }}
+          month = next.month;
+          year = next.year;
+        }}
       >
-        &gt;
-      </button>
-      <button on:click={()=>year++}>&Gt;</button>
+        keyboard_arrow_right
+      </IconButton>
+      <IconButton class='material-icons' on:click={()=>year++}>
+        keyboard_double_arrow_right
+      </IconButton>
     {/if}
   </span>
 
@@ -88,6 +97,10 @@
     grid-column: 2/3;
     margin-left: auto;
     margin-right: auto;
+  }
+  .month-text {
+    display: inline;
+    font-family: 'roboto'
   }
   .add-goal {
     grid-column: 3/4;
