@@ -12,7 +12,7 @@
 	let password = '';
 
 	const handleLogin = async () => {
-		const url = 'http://localhost:8080/auth/login';
+		const url = 'https://d703-76-105-101-89.ngrok.io/auth/login';
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
