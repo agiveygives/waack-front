@@ -76,6 +76,7 @@
 	}
 	.sidebar-open {
 		width: 350px;
+		min-width: 350px;
 		overflow: visible;
 	}
 	.content {
