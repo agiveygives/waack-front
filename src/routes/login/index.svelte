@@ -9,8 +9,21 @@
 	let email = '';
 	let password = '';
 
-	const handleLogin = (event: Event) => {
-		setLoginCookie(email);
+	const handleLogin = async () => {
+		const url = 'http://localhost:8080/auth/login';
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email,
+				password
+			})
+		});
+		const loginCookie = await response.text();
+		// need to return user
+		setLoginCookie(loginCookie);
 		goto('/main/nav');
 	};
 </script>

@@ -21,8 +21,8 @@ function get(cookieName: string): string {
     return "";
 }
 
-export function setLoginCookie(username: string) {
-    set('username', username, 2);
+export function setLoginCookie(token: string) {
+    set('token', token, 2);
 }
 
 export default { set, get };

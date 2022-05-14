@@ -16,15 +16,29 @@
 	const titleCategories = ['developer', 'senior developer', 'solution architect'];
 	let title = '';
 
-	const handleCreate = (event: Event) => {
-		// just a fake way to populate the store for now
+	const handleCreate = async (event: Event) => {
+		const url = 'http://localhost:8080/auth/register';
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name,
+				password,
+				email,
+				title,
+				manager
+			})
+		});
+		const loginCookie = await response.text();
+		setLoginCookie(loginCookie);
 		userInfo.set({
 			name,
 			email,
 			title,
 			manager
 		});
-		setLoginCookie(email);
 		goto('/main/nav');
 	};
 </script>
