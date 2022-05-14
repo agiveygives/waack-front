@@ -1,4 +1,6 @@
 <script lang="ts">
+
+  import Dialog from '@smui/dialog';
   import CircularProgress from '@smui/circular-progress';
 	import IconButton from '@smui/icon-button';
   import Select, { Option } from '@smui/select';
@@ -6,6 +8,7 @@
   import { Daily, Weekly, Monthly } from '@comp/GoalsCalendar';
   import { nextMonth, prevMonth } from '@comp/Calendar/CalendarUtils';
   import { Header } from '@comp/Header';
+  import CreateGoal from '@comp/CreateGoal';
   import { goals } from '@waack-gql/queries/goals.ts';
 
   let calendarOptions = ['Daily', 'Weekly', 'Monthly'];
@@ -18,7 +21,11 @@
 
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  let open = false;
 </script>
+
+<CreateGoal {open} />
 
 <Header header="Goals" />
 <span class='header-controls'>
@@ -67,7 +74,7 @@
   </span>
 
   <span class="add-goal">
-    <Button on:click={() => console.log('Add a Goal')}>
+    <Button on:click={() => { open = true }}>
       <Icon class="material-icons">add</Icon>
       <Label>Add a Goal</Label>
     </Button>

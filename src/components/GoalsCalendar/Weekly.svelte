@@ -1,4 +1,6 @@
 <script>
+	import { Goal } from '@comp/Goal';
+
   export let goals = [];
 
   let todos = goals.filter((goal) => !goal.started);
@@ -6,18 +8,18 @@
   let inProgress = goals.filter((goal) => goal.started && !goal.complete);
 
   let complete = {
+    sunday: [],
     monday: [],
     tuesday: [],
     wednesday: [],
     thursday: [],
     friday: [],
-    saturday: [],
-    sunday: []
+    saturday: []
   };
 
   goals
     .filter((goal) => {
-      const goalDate = new Date(goal.complete).getDate();
+      const goalDate = new Date(goal.complete);
 
       const todayObj = new Date();
       const todayDate = todayObj.getDate();
@@ -25,16 +27,22 @@
 
       // get first date of week
       const firstDayOfWeek = new Date(todayObj.setDate(todayDate - todayDay));
+      firstDayOfWeek.setHours(0);
+      firstDayOfWeek.setMinutes(0);
 
       // get last date of week
       const lastDayOfWeek = new Date(firstDayOfWeek);
+      console.log(lastDayOfWeek);
+      console.log(lastDayOfWeek.getDate());
       lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
+      lastDayOfWeek.setHours(23);
+      lastDayOfWeek.setMinutes(59);
 
       // if date is equal or within the first and last dates of the week
       return goalDate >= firstDayOfWeek && goalDate <= lastDayOfWeek;
     })
     .map((goal) => {
-      const goalDay = new Date(goal.complete).getDate();
+      const goalDay = new Date(goal.complete).getDay();
 
       switch (goalDay) {
         case 0:
@@ -74,6 +82,10 @@
 
   const dailyZones = [
     {
+      name: 'Sunday',
+      items: complete.sunday
+    },
+    {
       name: 'Monday',
       items: complete.monday
     },
@@ -96,10 +108,6 @@
     {
       name: 'Saturday',
       items: complete.saturday
-    },
-    {
-      name: 'Sunday',
-      items: complete.sunday
     },
   ]
 
@@ -151,7 +159,7 @@
               draggable={true}
               on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
             >
-              {item.name}
+              <Goal goal={item} />
             </li>
           </div>
         {/each}
@@ -172,7 +180,7 @@
               {#each zone.items as item, itemIndex (`${item.name}-${itemIndex}`)}
                 <div>
                   <li>
-                    {item.name}
+                    <Goal goal={item} />
                   </li>
                 </div>
               {/each}
@@ -202,17 +210,6 @@
   }
   .item {
     display: block;
-  }
-  li {
-    background-color: lightgray;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  li:hover {
-    background: orange;
-    color: white;
   }
   ul {
     border: solid lightgray 1px;

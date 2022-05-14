@@ -1,4 +1,6 @@
 <script>
+	import { Goal } from '@comp/Goal';
+
   export let goals = [];
 
   let todos = goals.filter((goal) => !goal.started);
@@ -72,7 +74,7 @@
             draggable={true}
             on:dragstart={event => dragStart(event, zoneIndex, itemIndex)}
           >
-            {item.name}
+            <Goal goal={item} />
           </li>
         {/each}
       </ul>
@@ -95,17 +97,6 @@
   }
   .hovering {
     border-color: orange;
-  }
-  li {
-    background-color: lightgray;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  li:hover {
-    background: orange;
-    color: white;
   }
   ul {
     border: solid lightgray 1px;
