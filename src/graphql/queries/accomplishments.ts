@@ -4,7 +4,8 @@ import graphQLClient from '../client';
 import type QueryResType from '../types';
 import type { Accomplishment } from '../../types/accomplishment';
 
-const getAccomplishments = async () => {
+const getAccomplishments = async (sessionId: string) => {
+    graphQLClient.setHeader('session_id', sessionId)
     const { accomplishmentsByCurrentUser } = await graphQLClient.request(
         gql`
             query {
@@ -26,14 +27,14 @@ const getAccomplishments = async () => {
     return accomplishments;
 }
 
-function userAccomplishments() {
+export function userAccomplishments(sessionId: string) {
     const { subscribe, update } = writable<QueryResType>({
         status: 'loading',
         data: null,
     });
 
     const subscribeToStore = () => {
-        getAccomplishments()
+        getAccomplishments(sessionId)
             .then((response) => {
                 update(() => ({
                     status: 'success',
@@ -57,7 +58,7 @@ function userAccomplishments() {
                 status: 'loading'
             }));
 
-            getAccomplishments()
+            getAccomplishments(sessionId)
                 .then((response) => {
                     update(() => ({
                         status: 'success',
@@ -73,5 +74,3 @@ function userAccomplishments() {
         }
     };
 }
-
-export const accomplishments = userAccomplishments();

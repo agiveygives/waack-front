@@ -70,6 +70,7 @@
 		justify-content: space-between;
 		padding-bottom: 1px;
 		width: 45px;
+		min-width: 45px;
 		transition: all 300ms;
 		overflow: hidden;
 	}

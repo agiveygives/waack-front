@@ -3,15 +3,17 @@
 	import Accordion from '@smui-extra/accordion';
 	import { Accomplishment } from '@comp/Accomplishment';
 	import { CreateAccomplishment } from '@comp/CreateAccomplishment';
-	import { accomplishments } from '@waack-gql/queries/accomplishments.ts';
+	import { userAccomplishments } from '@waack-gql/queries/accomplishments.ts';
 	import CircularProgress from '@smui/circular-progress';
 	import Button from '@smui/button';
 	import { Icon, Label } from '@smui/common';
+	import cookies from '../../../helpers/cookies';
 
 	let addModalOpen = false;
 	const toggleModal = () => {
 		addModalOpen = !addModalOpen;
 	};
+	const accomplishments = userAccomplishments(cookies.get('token'));
 	$: accomplishments, accomplishments.refetch;
 </script>
 
