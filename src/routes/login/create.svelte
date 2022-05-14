@@ -17,7 +17,7 @@
 	let title = '';
 
 	const handleCreate = async (event: Event) => {
-		const url = 'http://localhost:8080/auth/register';
+		const url = 'https://d703-76-105-101-89.ngrok.io/auth/register';
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
