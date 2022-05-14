@@ -20,7 +20,7 @@
     margin-top: 10px;
     font-family: 'roboto';
     padding: 15px 25px;
-    background-color: lightgray;
+    background: lightgray;
     cursor: pointer;
     display: inline-block;
     border-radius: 5px;

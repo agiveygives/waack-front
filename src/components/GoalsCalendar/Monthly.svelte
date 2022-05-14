@@ -106,7 +106,6 @@
     width: 100%;
     display: grid;
     grid-auto-columns: 50%;
-    grid-auto-rows: 33%;
     grid-gap: 10px;
   }
   .col-header {
@@ -118,6 +117,9 @@
   }
   .item {
     display: block;
+  }
+  li {
+    list-style:none;
   }
   ul {
     border: solid lightgray 1px;
@@ -135,18 +137,15 @@
   }
   .todo {
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
   }
   .in-progress {
     grid-column: 2 / 3;
-    grid-row: 1 / 2;
   }
 
   .week-container {
     margin-top: 100px;
     height: 100%;
     text-align: center;
-    grid-row: 2 / 4;
     grid-column: 1 / 3;
   }
   .days-container {

@@ -98,6 +98,9 @@
   .hovering {
     border-color: orange;
   }
+  li {
+    list-style:none;
+  }
   ul {
     border: solid lightgray 1px;
     color: black;
