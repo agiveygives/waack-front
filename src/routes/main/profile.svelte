@@ -61,7 +61,7 @@
 			</Body>
 		</DataTable>
 	</div>
-	<div class="flex-column">
+	<div class="flex-column integrate">
 		<h3>Integrate With</h3>
 		<img src="/images/slack.png" alt="slack" />
 		<img src="/images/github.png" alt="github" />
@@ -99,8 +99,13 @@
 	:global(.mdc-data-table) {
 		width: 100%;
 	}
+
+	.integrate {
+		display: flex;
+		flex-direction: column;
+	}
 	img {
-		height: 45px;
+		max-width: 100%;
 		margin: 20px 0;
 	}
 </style>
