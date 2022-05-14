@@ -49,7 +49,13 @@
 			<Textfield class="shaped-filled" variant="filled" bind:value={email} label="email address">
 				<Icon class="material-icons" slot="leadingIcon">person</Icon>
 			</Textfield>
-			<Textfield class="shaped-filled" variant="filled" bind:value={password} label="password">
+			<Textfield
+				class="shaped-filled"
+				variant="filled"
+				bind:value={password}
+				label="password"
+				type="password"
+			>
 				<Icon class="material-icons" slot="leadingIcon">lock</Icon>
 			</Textfield>
 			<Textfield class="shaped-filled" variant="filled" bind:value={name} label="name">

@@ -5,6 +5,8 @@
 	import Button, { Label } from '@smui/button';
 	import { goto } from '$app/navigation';
 	import { setLoginCookie } from '../../helpers/cookies';
+	import { userInfo } from '../../store/login';
+	import { getUser } from '@waack-gql/queries/user';
 
 	let email = '';
 	let password = '';
@@ -21,10 +23,16 @@
 				password
 			})
 		});
-		const loginCookie = await response.text();
-		// need to return user
-		setLoginCookie(loginCookie);
-		goto('/main/nav');
+		if (response.status === 200) {
+			const sessionId = await response.text();
+			setLoginCookie(sessionId);
+			const user = await getUser(sessionId);
+			userInfo.set(user);
+			goto('/main/nav');
+		} else {
+			email = '';
+			password = '';
+		}
 	};
 </script>
 
@@ -34,7 +42,13 @@
 			<Textfield class="shaped-filled" variant="filled" bind:value={email} label="email address">
 				<Icon class="material-icons" slot="leadingIcon">person</Icon>
 			</Textfield>
-			<Textfield class="shaped-filled" variant="filled" bind:value={password} label="password">
+			<Textfield
+				class="shaped-filled"
+				variant="filled"
+				bind:value={password}
+				label="password"
+				type="password"
+			>
 				<Icon class="material-icons" slot="leadingIcon">lock</Icon>
 			</Textfield>
 			<Button on:click={handleLogin} variant="raised" disabled={!email || !password}>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 
 	import Button from '@smui/button';
@@ -8,7 +8,7 @@
 
 	let name = '';
 	let username = '';
-	const handleLogout = async (/** @type {Event} */ event) => {
+	const handleLogout = async () => {
 		const url = 'http://localhost:8080/auth/logout';
 		await fetch(url, {
 			headers: {
