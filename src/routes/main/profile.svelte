@@ -12,7 +12,7 @@
 
 	userInfo.subscribe((value) => (userValue = value));
 	const handleLogout = async () => {
-		const url = 'http://localhost:8080/auth/logout';
+		const url = 'https://d703-76-105-101-89.ngrok.io/auth/logout';
 		await fetch(url, {
 			headers: {
 				session_id: cookies.get('token')
