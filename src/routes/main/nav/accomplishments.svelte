@@ -3,21 +3,17 @@
 	import Accordion from '@smui-extra/accordion';
 	import { Accomplishment } from '@comp/Accomplishment';
 	import { AddAccomplishment } from '@comp/AddAccomplishment';
+	import { accomplishments } from '@waack-gql/queries/accomplishments.ts';
+	import CircularProgress from '@smui/circular-progress';
 	import Button from '@smui/button';
 	import { Icon, Label } from '@smui/common';
-	import { accomplishments } from '../../../store/accomplishments';
-
-	let accomplishmentData: Accomplishment[] = [];
-	accomplishments.subscribe((value) => (accomplishmentData = value));
 
 	let addModalOpen = false;
 	const toggleModal = () => {
 		addModalOpen = !addModalOpen;
 	};
 
-	function handleAdd(event: Accomplishment) {
-		accomplishments.set([...accomplishmentData, event.detail]);
-	}
+	function handleAdd(event: Accomplishment) {}
 </script>
 
 <HeaderComponent header="Accomplishments" />
@@ -29,10 +25,14 @@
 	</Button>
 </div>
 
-<div class="accordion-container">
-	<Accordion>
-		{#each accomplishmentData as accomplishment}
-			<Accomplishment {accomplishment} />
-		{/each}
-	</Accordion>
-</div>
+{#if $accomplishments.status === 'loading'}
+	<CircularProgress style="height: 32px; width: 32px;" indeterminate />
+{:else}
+	<div class="accordion-container">
+		<Accordion>
+			{#each $accomplishments.data as accomplishment}
+				<Accomplishment {accomplishment} />
+			{/each}
+		</Accordion>
+	</div>
+{/if}

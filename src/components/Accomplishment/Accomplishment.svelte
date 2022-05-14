@@ -9,11 +9,11 @@
 
 <Panel>
 	<Header>
-		{accomplishment.date}
-		<span slot="description">{accomplishment.description}</span>
+		{accomplishment.created}
+		<span slot="description">{accomplishment.name}</span>
 	</Header>
 	<Content>
-		{accomplishment.content}
+		{accomplishment.description}
 		<Set chips={tags} let:chip input>
 			<Chip {chip}>
 				<Text>{chip}</Text>

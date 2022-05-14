@@ -1,7 +1,7 @@
 export interface Accomplishment {
-    date: string;
+    created: string;
     description: string;
-    content: string;
+    name: string;
     uploadedFiles?: FileList | null;
     tags?: string;
 }

@@ -42,17 +42,17 @@
 		>
 	</div>
 
-	<div class='content'>
+	<div class="content">
 		<slot />
 	</div>
 </div>
 
 <style>
 	.nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    height: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: left;
+		height: 100%;
 	}
 	.sidebar,
 	.sidebar-open,
@@ -83,10 +83,6 @@
 		max-width: 100%;
 		display: flex;
 		flex-direction: column;
-	}
-	.content {
-    padding: 50px 75px;
-    width: 100%;
 	}
 	:global(.arrow) {
 		transform: rotate(45deg);
