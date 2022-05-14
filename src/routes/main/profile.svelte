@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 
 	import Button from '@smui/button';
@@ -8,8 +8,15 @@
 
 	let name = '';
 	let username = '';
-	const handleLogout = (/** @type {Event} */ event) => {
-		cookies.set('username', '', -1);
+	const handleLogout = async () => {
+		const url = 'http://localhost:8080/auth/logout';
+		await fetch(url, {
+			headers: {
+				session_id: cookies.get('token')
+			}
+		});
+
+		cookies.set('token', '', -1);
 		goto('/login');
 	};
 </script>
