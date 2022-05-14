@@ -1,5 +1,7 @@
 <script>
 	import { Goal } from '@comp/Goal';
+  import { goals as GoalsStore } from '@waack-gql/queries/goals.ts';
+  import { goal } from '@waack-gql/mutations/updateGoal';
 
   export let goals = [];
 
@@ -134,6 +136,15 @@
     zones[zoneIndex].items.push(item);
     zones = zones;
 
+    switch (zoneIndex) {
+      case 0:
+        goal.update({ uuid: item.uuid, complete: null, started: null }, GoalsStore.refetch)
+        break;
+      case 1:
+        goal.update({ uuid: item.uuid, complete: null, started: new Date() }, GoalsStore.refetch)
+        break;
+    }
+
     hoveringOverZone = null;
   }
 </script>
@@ -211,7 +222,14 @@
     display: block;
   }
   li {
-    list-style:none;
+    list-style: none;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    float: none;
   }
   ul {
     border: solid lightgray 1px;

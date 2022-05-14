@@ -3,42 +3,51 @@ import { gql } from 'graphql-request';
 import graphQLClient from '../client';
 import type QueryResType from '../types';
 
-const createGoal = async (name: string, tags: string[] = []) => {
+type goalData = {
+  uuid: string,
+  name?: string,
+  tags?: string[],
+  complete?: Date,
+  started?: Date,
+}
+
+const updateGoal = async (goalData: goalData) => {
   const { goal } = await graphQLClient.request(
     gql`
       mutation(
-        $name: String!,
+        $uuid: String!,
+        $name: String,
         $tags: [String],
+        $complete: DateTime,
+        $started: DateTime
       ) {
-        createGoal(goalData: {
+        updateGoal(goalData: {
+          uuid: $uuid,
           name: $name,
           tags: $tags,
+          complete: $complete,
+          started: $started
         }) {
           goal {
-            uuid
+            uuid,
             name,
+            tags,
             created,
             started,
-            complete,
-            tags,
-            owner {
-              name
-            }
+            created
           }
+
         }
       }
     `,
-    {
-      name,
-      tags
-    }
+    goalData
   )
 
   return goal;
 }
 
 
-function newGoal() {
+function updatedGoal() {
 	const { subscribe, update } = writable<QueryResType>({
     status: 'noop',
     data: null,
@@ -46,12 +55,12 @@ function newGoal() {
 
 	return {
 		subscribe,
-		create: (name: string, tags: string[], callback: () => unknown) => {
+		update: (goalData: goalData, callback: () => unknown) => {
       update(() => ({
         status: 'loading',
       }));
 
-      createGoal(name, tags)
+      updateGoal(goalData)
         .then((response) => {
           update(() => ({
             status: 'success',
@@ -70,4 +79,4 @@ function newGoal() {
 	};
 }
 
-export const goal = newGoal();
+export const goal = updatedGoal();
