@@ -1,7 +1,7 @@
-import { readable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { gql } from 'graphql-request';
 import graphQLClient from '../client';
-import type QueryResType from './types';
+import type QueryResType from '../types';
 
 const getGoals = async () => {
   const { goals } = await graphQLClient.request(
@@ -26,29 +26,52 @@ const getGoals = async () => {
   return goals;
 }
 
-export const goals = readable<QueryResType>(
-  {
+function userGoals() {
+	const { subscribe, update } = writable<QueryResType>({
     status: 'loading',
     data: null,
-  },
-  set => {
-    set({
-      status: 'loading',
-      data: null,
-    });
+  });
 
+  const subscribeToStore =  () => {
     getGoals()
       .then((response) => {
-        set({
+        update(() => ({
           status: 'success',
           data: response
-        })
+        }))
       })
       .catch((err) => {
-        set({
+        update(() => ({
           status: 'error',
-          error: err,
-        })
+          error: err
+        }))
       })
+
+    return subscribe;
   }
-);
+
+	return {
+		subscribe: subscribeToStore(),
+		refetch: () => {
+      update(() => ({
+        status: 'loading'
+      }));
+
+      getGoals()
+        .then((response) => {
+          update(() => ({
+            status: 'success',
+            data: response
+          }))
+        })
+        .catch((err) => {
+          update(() => ({
+            status: 'error',
+            error: err
+          }))
+        })
+    }
+	};
+}
+
+export const goals = userGoals();
